@@ -1,0 +1,10 @@
+tmp
+bin
+build
+node_modules
+package.json
+.DS_Store
+.classpath
+.project
+.settings
+.apt_generated
