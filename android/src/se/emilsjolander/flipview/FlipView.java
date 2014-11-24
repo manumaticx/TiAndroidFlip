@@ -1,5 +1,6 @@
 package se.emilsjolander.flipview;
 
+import de.manumaticx.androidflip.AndroidflipModule;
 import se.emilsjolander.flipview.Recycler.Scrap;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -1217,6 +1218,22 @@ public class FlipView extends FrameLayout {
 	public void setEmptyView(View emptyView) {
 		mEmptyView = emptyView;
 		updateEmptyStatus();
+	}
+	
+	/**
+	 * Set the flipping orientation to either "vertical" or "horizontal"
+	 * 
+	 * @param orientation
+	 */
+	public void setOrientation(String orientation) {
+		
+		if (orientation == AndroidflipModule.ORIENTATION_VERTICAL){
+			mIsFlippingVertically = true;
+		}
+		
+		if (orientation == AndroidflipModule.ORIENTATION_HORIZONTAL){
+			mIsFlippingVertically = false;
+		}
 	}
 
 }
