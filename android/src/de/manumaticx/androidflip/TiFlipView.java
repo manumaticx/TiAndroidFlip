@@ -67,7 +67,15 @@ public class TiFlipView extends TiUIView implements FlipView.OnFlipListener {
 		}
 		
 		if (d.containsKey(PROPERTY_OVERFLIPMODE)) {
-			mFlipView.setOverFlipMode((OverFlipMode) d.get(PROPERTY_OVERFLIPMODE));
+			int mode = TiConvert.toInt(d, PROPERTY_OVERFLIPMODE);
+			
+			if (mode == AndroidflipModule.OVERFLIPMODE_GLOW) {
+				mFlipView.setOverFlipMode(OverFlipMode.GLOW);
+			}
+			
+			if (mode == AndroidflipModule.OVERFLIPMODE_RUBBER_BAND) {
+				mFlipView.setOverFlipMode(OverFlipMode.RUBBER_BAND);
+			}
 		}
 		
 		setNativeView(mFlipView);

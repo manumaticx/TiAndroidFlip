@@ -1228,11 +1228,17 @@ public class FlipView extends FrameLayout {
 	public void setOrientation(String orientation) {
 		
 		if (orientation == AndroidflipModule.ORIENTATION_VERTICAL){
-			mIsFlippingVertically = true;
+			if (!mIsFlippingVertically){
+				mIsFlippingVertically = true;
+				init();
+			}
 		}
 		
 		if (orientation == AndroidflipModule.ORIENTATION_HORIZONTAL){
-			mIsFlippingVertically = false;
+			if (mIsFlippingVertically){
+				mIsFlippingVertically = false;
+				init();
+			}
 		}
 	}
 

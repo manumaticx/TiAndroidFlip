@@ -132,7 +132,7 @@ public class FlipViewProxy extends TiViewProxy {
 	}
 
 	@Kroll.method
-	public void scrollToView(Object view)
+	public void flipToView(Object view)
 	{
 		getMainHandler().obtainMessage(MSG_FLIP_TO, view).sendToTarget();
 	}
