@@ -7,15 +7,16 @@ import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.common.Log;
 import org.appcelerator.titanium.TiC;
 import org.appcelerator.titanium.proxy.TiViewProxy;
+import org.appcelerator.titanium.util.TiConvert;
 import org.appcelerator.titanium.view.TiUIView;
 
 import se.emilsjolander.flipview.FlipView;
 import se.emilsjolander.flipview.OverFlipMode;
 import android.app.Activity;
 
-public class TiFlipView extends TiUIView {
+public class TiFlipView extends TiUIView implements FlipView.OnFlipListener {
 	
-	private static final String TAG = "FlipViewProxy";
+	private static final String TAG = "de.manumaticx.androidflip";
 	
 	public static final String PROPERTY_ORIENTATION = "orientation";
 	public static final String PROPERTY_OVERFLIPMODE = "overFlipMode";
@@ -33,7 +34,18 @@ public class TiFlipView extends TiUIView {
 		mAdapter = new FlipViewAdapter(activity, mViews);
 		mFlipView = new FlipView(activity);
 		mFlipView.setAdapter(mAdapter);
+		mFlipView.setOnFlipListener(this);
+	}
+	
+	public void onFlippedToPage(FlipView v, int position, long id) {
 		
+		mCurIndex = position;
+		
+		if (proxy.hasListeners("flipped")) {
+			KrollDict options = new KrollDict();
+			options.put("index", position);
+			proxy.fireEvent("flipped", options);
+		}
 	}
 
 	@Override
@@ -41,6 +53,13 @@ public class TiFlipView extends TiUIView {
 	{
 		if (d.containsKey(TiC.PROPERTY_VIEWS)) {
 			setViews(d.get(TiC.PROPERTY_VIEWS));
+		}
+		
+		if (d.containsKey(TiC.PROPERTY_CURRENT_PAGE)) {
+			int page = TiConvert.toInt(d, TiC.PROPERTY_CURRENT_PAGE);
+			if (page > 0) {
+				setCurrentPage(page);
+			}
 		}
 		
 		if (d.containsKey(PROPERTY_ORIENTATION)) {
@@ -59,16 +78,16 @@ public class TiFlipView extends TiUIView {
 	@Override
 	public void propertyChanged(String key, Object oldValue, Object newValue, KrollProxy proxy) {
 		
-		if (key.equals(TiC.PROPERTY_VIEWS)) {
+		if (TiC.PROPERTY_CURRENT_PAGE.equals(key)) {
+			setCurrentPage(TiConvert.toInt(newValue));
+		} else if (key.equals(TiC.PROPERTY_VIEWS)) {
 			setViews(newValue);
-		}
-		
-		if (key.equals(PROPERTY_ORIENTATION)) {
+		} else if (key.equals(PROPERTY_ORIENTATION)) {
 			mFlipView.setOrientation((String) newValue);
-		}
-		
-		if (key.equals(PROPERTY_OVERFLIPMODE)) {
+		} else if (key.equals(PROPERTY_OVERFLIPMODE)) {
 			mFlipView.setOverFlipMode((OverFlipMode) newValue);
+		} else {
+			super.propertyChanged(key, oldValue, newValue, proxy);
 		}
 	}
 	
@@ -105,6 +124,11 @@ public class TiFlipView extends TiUIView {
 		if (changed) {
 			mAdapter.notifyDataSetChanged();
 		}
+	}
+	
+	public ArrayList<TiViewProxy> getViews()
+	{
+		return mViews;
 	}
 	
 	public void addView(TiViewProxy proxy)
@@ -153,5 +177,38 @@ public class TiFlipView extends TiUIView {
 		} else {
 			mFlipView.flipTo(index);
 		}
+	}
+	
+	public void flipTo(Object view)
+	{
+		if (view instanceof Number) {
+			move(((Number) view).intValue(), true);
+		} else if (view instanceof TiViewProxy) {
+			move(mViews.indexOf(view), true);
+		}
+	}
+	
+	public int getCurrentPage()
+	{
+		return mCurIndex;
+	}
+
+	public void setCurrentPage(Object view)
+	{
+		if (view instanceof Number) {
+			move(((Number) view).intValue(), false);
+		} else if (Log.isDebugModeEnabled()) {
+			Log.w(TAG, "Request to set current page is ignored, as it is not a number.", Log.DEBUG_MODE);
+		}
+	}
+	
+	public void peakNext(boolean once)
+	{
+		mFlipView.peakNext(once);
+	}
+	
+	public void peakPrevious(boolean once)
+	{
+		mFlipView.peakPrevious(once);
 	}
 }
