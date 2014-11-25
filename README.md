@@ -1,10 +1,37 @@
 # TiAndroidFlip
 
-> IMPORTANT: This Module is still "work in progress"
-
-This is a Titanium module built upon [FlipView](https://github.com/emilsjolander/android-FlipView) for Android. It behaves much like a ScrollableView with a flipping animation.
+This is a Titanium module built upon [FlipView](https://github.com/emilsjolander/android-FlipView) for Android. You can consider it as a replacement for Ti.UI.ScrollableView as it behaves similar. Both flipping directions, vertical and horizontal, are supported.
 
 ![](documentation/demo.gif)
+
+## Get it [![gitTio](http://gitt.io/badge.png)](http://gitt.io/component/de.manumaticx.androidflip)
+Download the latest distribution ZIP-file and consult the [Titanium Documentation](http://docs.appcelerator.com/titanium/latest/#!/guide/Using_a_Module) on how install it, or simply use the [gitTio CLI](http://gitt.io/cli):
+
+`$ gittio install de.manumaticx.androidflip`
+
+## Using it
+
+Full example is [here](exapmle/)
+
+```javascript
+// require the module
+var Flip = require('de.manumaticx.androidflip');
+
+// create the flipView
+var flipView = Flip.createFlipView({
+	orientation: Flip.ORIENTATION_HORIZONTAL,
+	overFlipMode: Flip.OVERFLIPMODE_RUBBER_BAND,
+	views: views
+});
+
+// add flip listener
+flipView.addEventListener('flipped', function(e){
+	Ti.API.info("flipped to page " + e.index);
+});
+
+```
+
+__RTFM?__ - [Documentation](documentation/index.md)
 
 ## License
 	The MIT License (MIT)

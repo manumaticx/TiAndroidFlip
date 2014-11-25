@@ -1,17 +1,13 @@
-#
-# this is your module manifest and used by Titanium
-# during compilation, packaging, distribution, etc.
-#
-version: 1.0.0
+version: 1.0.1
 apiversion: 2
-description: androidflip
-author: Your Name
-license: Specify your license
-copyright: Copyright (c) 2014 by Your Company
+description: Android FlipView for Titanium
+author: Manuel Lehner
+license: MIT
+copyright: Copyright (c) 2014 by Manuel Lehner
 
 # these should not be edited
-name: androidflip
-moduleid: com.manumaticx.androidflip
+name: AndroidFlip
+moduleid: de.manumaticx.androidflip
 guid: c748346d-7c10-48aa-9821-c071859d616f
 platform: android
 minsdk: 3.4.1.GA

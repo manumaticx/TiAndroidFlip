@@ -1,39 +1,18 @@
-# androidflip Module
+# TiAndroidFlip API
 
-## Description
+## Properties
 
-TODO: Enter your module description here
+* __currentPage__ `Number` - Index of the active page
+* __views__ `Ti.UI.View[]` - The pages within the flipView
+* __orientation__ `String` - The flipping orientation (either _ORIENTATION_VERTICAL_ or _ORIENTATION_HORIZONTAL_)
+* __overFlipMode__ `Number` - Same as OverScrollMode on ScrollableView (use _OVERFLIPMODE_GLOW_ to get the default android overscroll indicator or use  _OVERFLIPMODE_RUBBER_BAND_ to use a more iOS-like indication  )
 
-## Accessing the androidflip Module
+## Methods
 
-To access this module from JavaScript, you would do the following:
+* __getViews( )__ - Gets the value of the __views__ property.
+* __setViews( )__ - Sets the value of the __views__ property.
 
-    var androidflip = require("com.manumaticx.androidflip");
+## Events
 
-The androidflip variable is a reference to the Module object.
-
-## Reference
-
-TODO: If your module has an API, you should document
-the reference here.
-
-### androidflip.function
-
-TODO: This is an example of a module function.
-
-### androidflip.property
-
-TODO: This is an example of a module property.
-
-## Usage
-
-TODO: Enter your usage example here
-
-## Author
-
-TODO: Enter your author name, email and other contact
-details you want to share here.
-
-## License
-
-TODO: Enter your license/legal information here.
+* __flipped__ - fired when page was flipped
+  * `index` - index of the new page
