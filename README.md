@@ -11,7 +11,7 @@ Download the latest distribution ZIP-file and consult the [Titanium Documentatio
 
 ## Using it
 
-Full example is [here](exapmle/)
+Full example is [here](example/)
 
 ```javascript
 // require the module
