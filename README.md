@@ -31,6 +31,8 @@ flipView.addEventListener('flipped', function(e){
 
 ```
 
+_Tip:_ Use `flipView.peakNext();` to teach the user how to interact with the flipView. It will indicate that there is more content.
+
 __RTFM?__ - [Documentation](documentation/index.md)
 
 ## License
