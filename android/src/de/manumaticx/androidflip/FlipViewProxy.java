@@ -8,6 +8,7 @@ import org.appcelerator.kroll.common.AsyncResult;
 import org.appcelerator.kroll.common.Log;
 import org.appcelerator.kroll.common.TiMessenger;
 import org.appcelerator.titanium.proxy.TiViewProxy;
+import org.appcelerator.titanium.util.TiConvert;
 import org.appcelerator.titanium.view.TiUIView;
 
 import android.app.Activity;
@@ -27,6 +28,8 @@ public class FlipViewProxy extends TiViewProxy {
 	public static final int MSG_ADD_VIEW = MSG_FIRST_ID + 105;
 	public static final int MSG_SET_CURRENT = MSG_FIRST_ID + 106;
 	public static final int MSG_REMOVE_VIEW = MSG_FIRST_ID + 107;
+	public static final int MSG_PEAK_PREV = MSG_FIRST_ID + 108;
+	public static final int MSG_PEAK_NEXT = MSG_FIRST_ID + 109;
 	public static final int MSG_LAST_ID = MSG_FIRST_ID + 999;
 
 	public FlipViewProxy() {
@@ -99,6 +102,14 @@ public class FlipViewProxy extends TiViewProxy {
 				holder.setResult(null);
 				break;
 			}
+			case MSG_PEAK_PREV:
+				getView().peakPrevious((Boolean) msg.obj);
+				handled = true;
+				break;
+			case MSG_PEAK_NEXT:
+				getView().peakNext((Boolean) msg.obj);
+				handled = true;
+				break;
 			default:
 				handled = super.handleMessage(msg);
 		}
@@ -161,5 +172,29 @@ public class FlipViewProxy extends TiViewProxy {
 	public void setCurrentPage(Object page)
 	{
 		getMainHandler().obtainMessage(MSG_SET_CURRENT, page).sendToTarget();
+	}
+	
+	@Kroll.method
+	public void peakPrevious(@Kroll.argument(optional = true) Boolean arg)
+	{
+		Boolean once = false;
+		
+		if (arg != null) {
+			once = TiConvert.toBoolean(arg);
+		}
+		
+		getMainHandler().obtainMessage(MSG_PEAK_PREV, once).sendToTarget();
+	}
+
+	@Kroll.method
+	public void peakNext(@Kroll.argument(optional = true) Boolean arg)
+	{
+		Boolean once = false;
+		
+		if (arg != null) {
+			once = TiConvert.toBoolean(arg);
+		}
+		
+		getMainHandler().obtainMessage(MSG_PEAK_NEXT, once).sendToTarget();
 	}
 }
