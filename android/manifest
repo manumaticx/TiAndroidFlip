@@ -1,10 +1,10 @@
-version: 2.0.0
+version: 2.0.1
 apiversion: 3
 description: Android FlipView for Titanium
 author: Manuel Lehner
 license: MIT
 copyright: Copyright (c) 2014 by Manuel Lehner
-architectures: armeabi armeabi-v7a x86
+architectures: armeabi-v7a x86
 
 # these should not be edited
 name: AndroidFlip
