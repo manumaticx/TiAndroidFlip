@@ -20,7 +20,7 @@
 * __movePrevious( )__ - Sets the current page to the previous consecutive page in __views__.
 * __moveNext( )__ - Sets the current page to the next consecutive page in __views__.
 * __getCurrentPage( )__ - Gets the value of the __currentPage__ property.
-* __getCurrentPage( `currentPage` )__ - Sets the value of the __currentPage__ property.
+* __setCurrentPage( `currentPage` )__ - Sets the value of the __currentPage__ property.
 * __peakPrevious( `once` )__ - Indicates that the previous Page can be flipped.
   - `once`: `boolean` - (optional) if only peak once or continue peaking until the user inderacts with the view
 * __peakNext( `once` )__ - Indicates that the next Page can be flipped.
